@@ -12,6 +12,7 @@ use Spryker\Glue\RestRequestValidator\Dependency\Client\RestRequestValidatorToSt
 use Spryker\Glue\RestRequestValidator\Dependency\External\RestRequestValidatorToFilesystemAdapterInterface;
 use Spryker\Glue\RestRequestValidator\Dependency\External\RestRequestValidatorToYamlAdapterInterface;
 use Spryker\Glue\RestRequestValidator\Processor\Exception\CacheFileNotFoundException;
+use Spryker\Glue\RestRequestValidator\Processor\Validator\Configuration\Reader\RestRequestValidatorConfigFileReaderInterface;
 use Spryker\Glue\RestRequestValidator\RestRequestValidatorConfig;
 
 class RestRequestValidatorConfigReader implements RestRequestValidatorConfigReaderInterface
@@ -24,9 +25,9 @@ class RestRequestValidatorConfigReader implements RestRequestValidatorConfigRead
     protected $filesystem;
 
     /**
-     * @var \Spryker\Glue\RestRequestValidator\Dependency\External\RestRequestValidatorToYamlAdapterInterface
+     * @var \Spryker\Glue\RestRequestValidator\Processor\Validator\Configuration\Reader\RestRequestValidatorConfigFileReaderInterface
      */
-    protected $yaml;
+    protected $fileReader;
 
     /**
      * @var \Spryker\Glue\RestRequestValidator\Dependency\Client\RestRequestValidatorToStoreClientInterface
@@ -40,18 +41,18 @@ class RestRequestValidatorConfigReader implements RestRequestValidatorConfigRead
 
     /**
      * @param \Spryker\Glue\RestRequestValidator\Dependency\External\RestRequestValidatorToFilesystemAdapterInterface $filesystem
-     * @param \Spryker\Glue\RestRequestValidator\Dependency\External\RestRequestValidatorToYamlAdapterInterface $yaml
+     * @param \Spryker\Glue\RestRequestValidator\Processor\Validator\Configuration\Reader\RestRequestValidatorConfigFileReaderInterface $fileReader
      * @param \Spryker\Glue\RestRequestValidator\Dependency\Client\RestRequestValidatorToStoreClientInterface $storeClient
      * @param \Spryker\Glue\RestRequestValidator\RestRequestValidatorConfig $config
      */
     public function __construct(
         RestRequestValidatorToFilesystemAdapterInterface $filesystem,
-        RestRequestValidatorToYamlAdapterInterface $yaml,
+        RestRequestValidatorConfigFileReaderInterface $fileReader,
         RestRequestValidatorToStoreClientInterface $storeClient,
         RestRequestValidatorConfig $config
     ) {
         $this->filesystem = $filesystem;
-        $this->yaml = $yaml;
+        $this->fileReader = $fileReader;
         $this->storeClient = $storeClient;
         $this->config = $config;
     }
@@ -65,17 +66,7 @@ class RestRequestValidatorConfigReader implements RestRequestValidatorConfigRead
      */
     public function findValidationConfiguration(RestRequestInterface $restRequest): ?array
     {
-        $configurationFile = $this->getValidationCodeBucketConfigPath();
-
-        if (!$this->filesystem->exists($configurationFile)) {
-            $configurationFile = $this->getValidationConfigPath();
-        }
-
-        if (!$this->filesystem->exists($configurationFile)) {
-            throw new CacheFileNotFoundException(static::EXCEPTION_MESSAGE_CACHE_FILE_NOT_FOUND);
-        }
-
-        $configuration = $this->yaml->parseFile($configurationFile);
+        $configuration = $this->fileReader->readConfig();
 
         $resourceType = $restRequest->getResource()->getType();
         $requestMethod = strtolower($restRequest->getMetadata()->getMethod());
@@ -85,23 +76,5 @@ class RestRequestValidatorConfigReader implements RestRequestValidatorConfigRead
         }
 
         return $configuration[$resourceType][$requestMethod];
-    }
-
-    /**
-     * @deprecated Use {@link getValidationCodeBucketConfigPath()} instead.
-     *
-     * @return string
-     */
-    protected function getValidationConfigPath(): string
-    {
-        return sprintf($this->config->getValidationCacheFilenamePattern(), APPLICATION_STORE);
-    }
-
-    /**
-     * @return string
-     */
-    protected function getValidationCodeBucketConfigPath(): string
-    {
-        return sprintf($this->config->getValidationCodeBucketCacheFilenamePattern(), APPLICATION_CODE_BUCKET);
     }
 }

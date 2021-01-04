@@ -7,6 +7,8 @@
 
 namespace Spryker\Zed\RestRequestValidator\Business;
 
+use Spryker\Shared\RestRequestValidator\RestRequestValidatorConfig;
+use Spryker\Shared\RestRequestValidator\RestRequestValidatorConfig as RestRequestValidatorConfigShared;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 use Spryker\Zed\RestRequestValidator\Business\Builder\RestRequestValidatorCacheBuilder;
 use Spryker\Zed\RestRequestValidator\Business\Builder\RestRequestValidatorCacheBuilderInterface;
@@ -24,6 +26,9 @@ use Spryker\Zed\RestRequestValidator\Business\Remover\RestRequestValidatorCodeBu
 use Spryker\Zed\RestRequestValidator\Business\Remover\RestRequestValidatorCodeBucketCacheRemoverInterface;
 use Spryker\Zed\RestRequestValidator\Business\Saver\RestRequestValidatorCacheSaver;
 use Spryker\Zed\RestRequestValidator\Business\Saver\RestRequestValidatorCacheSaverInterface;
+use Spryker\Zed\RestRequestValidator\Business\Translator\RestRequestValidatorTranslatorInterface;
+use Spryker\Zed\RestRequestValidator\Business\Translator\RestRequestValidatorPhpTranslator;
+use Spryker\Zed\RestRequestValidator\Business\Translator\RestRequestValidatorYamlTranslator;
 use Spryker\Zed\RestRequestValidator\Dependency\External\RestRequestValidatorToFilesystemAdapterInterface;
 use Spryker\Zed\RestRequestValidator\Dependency\External\RestRequestValidatorToFinderAdapterInterface;
 use Spryker\Zed\RestRequestValidator\Dependency\External\RestRequestValidatorToYamlAdapterInterface;
@@ -87,9 +92,25 @@ class RestRequestValidatorBusinessFactory extends AbstractBusinessFactory
     {
         return new RestRequestValidatorCacheSaver(
             $this->getFilesystemAdapter(),
-            $this->getYamlAdapter(),
+            $this->createRestRequestValidatorTranslator(),
             $this->getConfig()
         );
+    }
+
+    /**
+     * @return \Spryker\Zed\RestRequestValidator\Business\Translator\RestRequestValidatorTranslatorInterface
+     */
+    public function createRestRequestValidatorTranslator(): RestRequestValidatorTranslatorInterface
+    {
+        $strategy = new RestRequestValidatorTranslatorStrategy(
+            [
+                RestRequestValidatorConfig::VALIDATION_CACHE_TYPE_YML => $this->createRestRequestValidatorYamlTranslator(),
+                RestRequestValidatorConfig::VALIDATION_CACHE_TYPE_PHP => $this->createRestRequestValidatorPhpTranslator(),
+            ],
+            $this->getConfig()
+        );
+
+        return $strategy->getTranslator();
     }
 
     /**
@@ -125,6 +146,24 @@ class RestRequestValidatorBusinessFactory extends AbstractBusinessFactory
             $this->getFilesystemAdapter(),
             $this->getConfig()
         );
+    }
+
+    /**
+     * @return \Spryker\Zed\RestRequestValidator\Business\Translator\RestRequestValidatorTranslatorInterface
+     */
+    public function createRestRequestValidatorYamlTranslator(): RestRequestValidatorTranslatorInterface
+    {
+        return new RestRequestValidatorYamlTranslator(
+            $this->getYamlAdapter()
+        );
+    }
+
+    /**
+     * @return \Spryker\Zed\RestRequestValidator\Business\Translator\RestRequestValidatorTranslatorInterface
+     */
+    public function createRestRequestValidatorPhpTranslator(): RestRequestValidatorTranslatorInterface
+    {
+        return new RestRequestValidatorPhpTranslator($this->getConfig());
     }
 
     /**

@@ -15,6 +15,8 @@ use Symfony\Component\HttpFoundation\Request;
 
 class RestRequestValidatorConfig extends AbstractBundleConfig
 {
+    public const VALIDATION_CACHE_TYPE = 'VALIDATION_CACHE_TYPE';
+
     public const RESPONSE_CODE_REQUEST_INVALID = '901';
 
     protected const CONSTRAINTS_NAMESPACE_SYMFONY_COMPONENT_VALIDATOR = 'Symfony\\Component\\Validator\\Constraints\\';
@@ -63,7 +65,48 @@ class RestRequestValidatorConfig extends AbstractBundleConfig
      */
     public function getValidationCodeBucketCacheFilenamePattern(): string
     {
-        return APPLICATION_SOURCE_DIR . RestRequestValidatorConfigShared::CODE_BUCKET_VALIDATION_CACHE_FILENAME_PATTERN;
+        return APPLICATION_SOURCE_DIR
+            . $this->getValidationCodeBucketCachePathPattern()
+            . $this->getValidationCodeBucketCacheFileExtension();
+    }
+
+    /**
+     * @api
+     *
+     * @return string
+     */
+    public function getValidationCodeBucketCachePathPattern(): string
+    {
+        return RestRequestValidatorConfigShared::CODE_BUCKET_VALIDATION_CACHE_FILENAME_PATTERN;
+    }
+
+    /**
+     * @api
+     *
+     * @return string
+     */
+    public function getValidationCodeBucketCacheFileExtension(): string
+    {
+        return sprintf(
+            '.%s',
+            $this->get(
+                RestRequestValidatorConfigShared::VALIDATION_CACHE_TYPE,
+                RestRequestValidatorConfigShared::VALIDATION_CACHE_TYPE_DEFAULT
+            )
+        );
+    }
+
+    /**
+     * @api
+     *
+     * @return string
+     */
+    public function getValidationCodeBucketCacheFileType(): string
+    {
+        return $this->get(
+            RestRequestValidatorConfigShared::VALIDATION_CACHE_TYPE,
+            RestRequestValidatorConfigShared::VALIDATION_CACHE_TYPE_DEFAULT
+        );
     }
 
     /**

@@ -7,6 +7,7 @@
 
 namespace Spryker\Zed\RestRequestValidator\Business\Saver;
 
+use Spryker\Zed\RestRequestValidator\Business\Translator\RestRequestValidatorTranslatorInterface;
 use Spryker\Zed\RestRequestValidator\Dependency\External\RestRequestValidatorToFilesystemAdapterInterface;
 use Spryker\Zed\RestRequestValidator\Dependency\External\RestRequestValidatorToYamlAdapterInterface;
 use Spryker\Zed\RestRequestValidator\RestRequestValidatorConfig;
@@ -24,22 +25,22 @@ class RestRequestValidatorCacheSaver implements RestRequestValidatorCacheSaverIn
     protected $filesystem;
 
     /**
-     * @var \Spryker\Zed\RestRequestValidator\Dependency\External\RestRequestValidatorToYamlAdapterInterface
+     * @var \Spryker\Zed\RestRequestValidator\Business\Translator\RestRequestValidatorTranslatorInterface
      */
-    protected $yaml;
+    protected $translator;
 
     /**
      * @param \Spryker\Zed\RestRequestValidator\Dependency\External\RestRequestValidatorToFilesystemAdapterInterface $filesystem
-     * @param \Spryker\Zed\RestRequestValidator\Dependency\External\RestRequestValidatorToYamlAdapterInterface $yaml
+     * @param \Spryker\Zed\RestRequestValidator\Business\Translator\RestRequestValidatorTranslatorInterface $translator
      * @param \Spryker\Zed\RestRequestValidator\RestRequestValidatorConfig $config
      */
     public function __construct(
         RestRequestValidatorToFilesystemAdapterInterface $filesystem,
-        RestRequestValidatorToYamlAdapterInterface $yaml,
+        RestRequestValidatorTranslatorInterface $translator,
         RestRequestValidatorConfig $config
     ) {
         $this->filesystem = $filesystem;
-        $this->yaml = $yaml;
+        $this->translator = $translator;
         $this->config = $config;
     }
 
@@ -55,7 +56,7 @@ class RestRequestValidatorCacheSaver implements RestRequestValidatorCacheSaverIn
     {
         $this->filesystem->dumpFile(
             $this->getStoreCacheFilePath($storeName),
-            $this->yaml->dump($validatorConfig)
+            $this->translator->translate($validatorConfig)
         );
     }
 
@@ -75,7 +76,7 @@ class RestRequestValidatorCacheSaver implements RestRequestValidatorCacheSaverIn
 
         $this->filesystem->dumpFile(
             $this->getCodeBucketCacheFilePath($codeBucket),
-            $this->yaml->dump($validatorConfig)
+            $this->translator->translate($validatorConfig, $codeBucket)
         );
     }
 
@@ -98,6 +99,9 @@ class RestRequestValidatorCacheSaver implements RestRequestValidatorCacheSaverIn
      */
     protected function getCodeBucketCacheFilePath(string $codeBucket): string
     {
-        return sprintf($this->config->getCodeBucketCacheFilePathPattern(), $codeBucket);
+        return sprintf(
+            $this->config->getCodeBucketCacheFilePathPattern() . $this->config->getValidationCodeBucketCacheFileExtension(),
+            $codeBucket
+        );
     }
 }

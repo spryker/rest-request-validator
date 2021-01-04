@@ -14,11 +14,15 @@ use Spryker\Glue\RestRequestValidator\Dependency\External\RestRequestValidatorTo
 use Spryker\Glue\RestRequestValidator\Dependency\External\RestRequestValidatorToFilesystemAdapterInterface;
 use Spryker\Glue\RestRequestValidator\Dependency\External\RestRequestValidatorToValidationAdapterInterface;
 use Spryker\Glue\RestRequestValidator\Dependency\External\RestRequestValidatorToYamlAdapterInterface;
+use Spryker\Glue\RestRequestValidator\Processor\Validator\Configuration\Reader\RestRequestValidatorConfigFileReaderInterface;
+use Spryker\Glue\RestRequestValidator\Processor\Validator\Configuration\Reader\RestRequestValidatorConfigPhpReader;
+use Spryker\Glue\RestRequestValidator\Processor\Validator\Configuration\Reader\RestRequestValidatorConfigYamlReader;
 use Spryker\Glue\RestRequestValidator\Processor\Validator\Configuration\RestRequestValidatorConfigReader;
 use Spryker\Glue\RestRequestValidator\Processor\Validator\Configuration\RestRequestValidatorConfigReaderInterface;
 use Spryker\Glue\RestRequestValidator\Processor\Validator\Constraint\RestRequestValidatorConstraintResolver;
 use Spryker\Glue\RestRequestValidator\Processor\Validator\Constraint\RestRequestValidatorConstraintResolverInterface;
 use Spryker\Glue\RestRequestValidator\Processor\Validator\RestRequestValidator;
+use Spryker\Shared\RestRequestValidator\RestRequestValidatorConfig;
 
 /**
  * @method \Spryker\Glue\RestRequestValidator\RestRequestValidatorConfig getConfig()
@@ -44,10 +48,46 @@ class RestRequestValidatorFactory extends AbstractFactory
     {
         return new RestRequestValidatorConfigReader(
             $this->getFilesystemAdapter(),
-            $this->getYamlAdapter(),
+            $this->createRestRequestValidatorConfigFileReader(),
             $this->getStoreClient(),
             $this->getConfig()
         );
+    }
+
+    /**
+     * @return \Spryker\Glue\RestRequestValidator\Processor\Validator\Configuration\Reader\RestRequestValidatorConfigFileReaderInterface
+     */
+    public function createRestRequestValidatorConfigFileReader(): RestRequestValidatorConfigFileReaderInterface
+    {
+        $strategy = new RestRequestValidatorFileReaderStrategy(
+            [
+                RestRequestValidatorConfig::VALIDATION_CACHE_TYPE_YML => $this->createRestRequestValidatorConfigYamlReader(),
+                RestRequestValidatorConfig::VALIDATION_CACHE_TYPE_PHP => $this->createRestRequestValidatorConfigPhpReader(),
+            ],
+            $this->getConfig()
+        );
+
+        return $strategy->getFileReader();
+    }
+
+    /**
+     * @return \Spryker\Glue\RestRequestValidator\Processor\Validator\Configuration\Reader\RestRequestValidatorConfigFileReaderInterface
+     */
+    public function createRestRequestValidatorConfigYamlReader(): RestRequestValidatorConfigFileReaderInterface
+    {
+        return new RestRequestValidatorConfigYamlReader(
+            $this->getFilesystemAdapter(),
+            $this->getYamlAdapter(),
+            $this->getConfig()
+        );
+    }
+
+    /**
+     * @return \Spryker\Glue\RestRequestValidator\Processor\Validator\Configuration\Reader\RestRequestValidatorConfigFileReaderInterface
+     */
+    public function createRestRequestValidatorConfigPhpReader(): RestRequestValidatorConfigFileReaderInterface
+    {
+        return new RestRequestValidatorConfigPhpReader($this->getConfig());
     }
 
     /**

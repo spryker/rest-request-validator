@@ -101,6 +101,54 @@ class RestRequestValidatorConfig extends AbstractBundleConfig
      *
      * @return string
      */
+    public function getValidationCodeBucketCacheFilenamePattern(): string
+    {
+        return APPLICATION_SOURCE_DIR
+            . $this->getValidationCodeBucketCachePathPattern()
+            . $this->getValidationCodeBucketCacheFileExtension();
+    }
+
+    /**
+     * @api
+     *
+     * @return string
+     */
+    public function getValidationCodeBucketCachePathPattern(): string
+    {
+        return RestRequestValidatorConfigShared::CODE_BUCKET_VALIDATION_CACHE_FILENAME_PATTERN;
+    }
+
+    /**
+     * @api
+     *
+     * @return string
+     */
+    public function getValidationCodeBucketCacheFileExtension(): string
+    {
+        return sprintf(
+            '.%s',
+            $this->getValidationCodeBucketCacheFileType()
+        );
+    }
+
+    /**
+     * @api
+     *
+     * @return string
+     */
+    public function getValidationCodeBucketCacheFileType(): string
+    {
+        return $this->get(
+        RestRequestValidatorConfigShared::VALIDATION_CACHE_TYPE,
+        RestRequestValidatorConfigShared::VALIDATION_CACHE_TYPE_DEFAULT
+        );
+    }
+
+    /**
+     * @api
+     *
+     * @return string
+     */
     public function getStoreModulesPattern(): string
     {
         return static::PATH_PATTERN_STORE_MODULES;
