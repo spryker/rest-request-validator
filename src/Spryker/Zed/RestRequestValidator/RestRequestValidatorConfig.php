@@ -40,8 +40,6 @@ class RestRequestValidatorConfig extends AbstractBundleConfig
     /**
      * @api
      *
-     * @deprecated Use getValidationSchemaPathPatterns instead.
-     *
      * @return array<string>
      */
     public function getValidationSchemaPathPattern(): array
