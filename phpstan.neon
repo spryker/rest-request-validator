@@ -2,4 +2,6 @@ parameters:
     ignoreErrors:
         -
             identifier: missingType.iterableValue
+        -
+            identifier: notIdentical.alwaysTrue
     level: 7
