@@ -39,12 +39,6 @@ class CurrencyValidator extends ConstraintValidator
         }
     }
 
-    /**
-     * @param string $isoCode
-     * @param \SprykerTest\Zed\RestRequestValidator\Communication\Stub\Constraint\Currency $constraint
-     *
-     * @return bool
-     */
     protected function hasCurrencyCode(string $isoCode, Currency $constraint): bool
     {
         return $constraint->isValidCurrencyIsoCode($isoCode);

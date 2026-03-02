@@ -9,10 +9,5 @@ namespace Spryker\Zed\RestRequestValidator\Business\Remover;
 
 interface RestRequestValidatorCodeBucketCacheRemoverInterface
 {
-    /**
-     * @param string $codeBucket
-     *
-     * @return void
-     */
     public function remove(string $codeBucket): void;
 }

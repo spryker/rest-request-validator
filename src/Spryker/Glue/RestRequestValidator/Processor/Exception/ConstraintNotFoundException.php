@@ -23,10 +23,6 @@ class ConstraintNotFoundException extends Exception
      */
     protected const NAMESPACE_CONFIG_SOURCE = '%s\%s\%s\%s::%s()';
 
-    /**
-     * @param string $constraintName
-     * @param int $code
-     */
     public function __construct(string $constraintName, int $code = 0)
     {
         parent::__construct($this->buildMessage($constraintName), $code);

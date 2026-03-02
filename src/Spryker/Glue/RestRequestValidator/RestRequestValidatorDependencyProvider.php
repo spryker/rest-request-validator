@@ -45,11 +45,6 @@ class RestRequestValidatorDependencyProvider extends AbstractBundleDependencyPro
      */
     public const CLIENT_STORE = 'CLIENT_STORE';
 
-    /**
-     * @param \Spryker\Glue\Kernel\Container $container
-     *
-     * @return \Spryker\Glue\Kernel\Container
-     */
     public function provideDependencies(Container $container): Container
     {
         $container = parent::provideDependencies($container);
@@ -62,11 +57,6 @@ class RestRequestValidatorDependencyProvider extends AbstractBundleDependencyPro
         return $container;
     }
 
-    /**
-     * @param \Spryker\Glue\Kernel\Container $container
-     *
-     * @return \Spryker\Glue\Kernel\Container
-     */
     protected function addFilesystemAdapter(Container $container): Container
     {
         $container->set(static::ADAPTER_FILESYSTEM, function () {
@@ -76,11 +66,6 @@ class RestRequestValidatorDependencyProvider extends AbstractBundleDependencyPro
         return $container;
     }
 
-    /**
-     * @param \Spryker\Glue\Kernel\Container $container
-     *
-     * @return \Spryker\Glue\Kernel\Container
-     */
     protected function addYamlAdapter(Container $container): Container
     {
         $container->set(static::ADAPTER_YAML, function () {
@@ -90,11 +75,6 @@ class RestRequestValidatorDependencyProvider extends AbstractBundleDependencyPro
         return $container;
     }
 
-    /**
-     * @param \Spryker\Glue\Kernel\Container $container
-     *
-     * @return \Spryker\Glue\Kernel\Container
-     */
     protected function addStoreClient(Container $container): Container
     {
         $container->set(static::CLIENT_STORE, function (Container $container) {
@@ -104,11 +84,6 @@ class RestRequestValidatorDependencyProvider extends AbstractBundleDependencyPro
         return $container;
     }
 
-    /**
-     * @param \Spryker\Glue\Kernel\Container $container
-     *
-     * @return \Spryker\Glue\Kernel\Container
-     */
     protected function addValidationAdapter(Container $container): Container
     {
         $container->set(static::ADAPTER_VALIDATION, function () {
@@ -118,11 +93,6 @@ class RestRequestValidatorDependencyProvider extends AbstractBundleDependencyPro
         return $container;
     }
 
-    /**
-     * @param \Spryker\Glue\Kernel\Container $container
-     *
-     * @return \Spryker\Glue\Kernel\Container
-     */
     protected function addConstraintCollectionAdapter(Container $container): Container
     {
         $container->set(static::ADAPTER_CONSTRAINT_COLLECTION, function () {

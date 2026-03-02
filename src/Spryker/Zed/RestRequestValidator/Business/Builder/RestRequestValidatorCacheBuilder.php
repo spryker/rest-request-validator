@@ -42,12 +42,6 @@ class RestRequestValidatorCacheBuilder implements RestRequestValidatorCacheBuild
      */
     protected $storeFacade;
 
-    /**
-     * @param \Spryker\Zed\RestRequestValidator\Business\Collector\RestRequestValidatorCacheCollectorInterface $restRequestValidatorCacheCollector
-     * @param \Spryker\Zed\RestRequestValidator\Business\Merger\RestRequestValidatorSchemaMergerInterface $restRequestValidatorSchemaMerger
-     * @param \Spryker\Zed\RestRequestValidator\Business\Saver\RestRequestValidatorCacheSaverInterface $restRequestValidatorCacheSaver
-     * @param \Spryker\Zed\RestRequestValidator\Dependency\Facade\RestRequestValidatorToStoreFacadeInterface $storeFacade
-     */
     public function __construct(
         RestRequestValidatorCacheCollectorInterface $restRequestValidatorCacheCollector,
         RestRequestValidatorSchemaMergerInterface $restRequestValidatorSchemaMerger,
@@ -60,9 +54,6 @@ class RestRequestValidatorCacheBuilder implements RestRequestValidatorCacheBuild
         $this->storeFacade = $storeFacade;
     }
 
-    /**
-     * @return void
-     */
     public function build(): void
     {
         foreach ($this->storeFacade->getAllStores() as $storeTransfer) {

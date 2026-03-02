@@ -41,12 +41,6 @@ class RestRequestValidatorConfigReader implements RestRequestValidatorConfigRead
      */
     protected $config;
 
-    /**
-     * @param \Spryker\Glue\RestRequestValidator\Dependency\External\RestRequestValidatorToFilesystemAdapterInterface $filesystem
-     * @param \Spryker\Glue\RestRequestValidator\Dependency\External\RestRequestValidatorToYamlAdapterInterface $yaml
-     * @param \Spryker\Glue\RestRequestValidator\Dependency\Client\RestRequestValidatorToStoreClientInterface $storeClient
-     * @param \Spryker\Glue\RestRequestValidator\RestRequestValidatorConfig $config
-     */
     public function __construct(
         RestRequestValidatorToFilesystemAdapterInterface $filesystem,
         RestRequestValidatorToYamlAdapterInterface $yaml,
@@ -102,9 +96,6 @@ class RestRequestValidatorConfigReader implements RestRequestValidatorConfigRead
             : '';
     }
 
-    /**
-     * @return string
-     */
     protected function getValidationCodeBucketConfigPath(): string
     {
         return sprintf($this->config->getValidationCodeBucketCacheFilenamePattern(), APPLICATION_CODE_BUCKET);

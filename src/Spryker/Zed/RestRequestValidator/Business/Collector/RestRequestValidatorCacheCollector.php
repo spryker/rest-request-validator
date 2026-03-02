@@ -28,11 +28,6 @@ class RestRequestValidatorCacheCollector implements RestRequestValidatorCacheCol
      */
     protected $filesystem;
 
-    /**
-     * @param \Spryker\Zed\RestRequestValidator\Business\Collector\SchemaFinder\RestRequestValidatorSchemaFinderInterface $restRequestValidatorSchemaFinder
-     * @param \Spryker\Zed\RestRequestValidator\Dependency\External\RestRequestValidatorToFilesystemAdapterInterface $filesystem
-     * @param \Spryker\Zed\RestRequestValidator\Dependency\External\RestRequestValidatorToYamlAdapterInterface $yaml
-     */
     public function __construct(
         RestRequestValidatorSchemaFinderInterface $restRequestValidatorSchemaFinder,
         RestRequestValidatorToFilesystemAdapterInterface $filesystem,
@@ -43,11 +38,6 @@ class RestRequestValidatorCacheCollector implements RestRequestValidatorCacheCol
         $this->yaml = $yaml;
     }
 
-    /**
-     * @param string $storeName
-     *
-     * @return array
-     */
     public function collect(string $storeName): array
     {
         $resultingConfig = [];

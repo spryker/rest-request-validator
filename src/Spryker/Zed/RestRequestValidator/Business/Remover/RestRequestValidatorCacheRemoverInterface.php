@@ -9,8 +9,5 @@ namespace Spryker\Zed\RestRequestValidator\Business\Remover;
 
 interface RestRequestValidatorCacheRemoverInterface
 {
-    /**
-     * @return void
-     */
     public function remove(): void;
 }

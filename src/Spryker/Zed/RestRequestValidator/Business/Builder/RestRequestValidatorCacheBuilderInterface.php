@@ -9,8 +9,5 @@ namespace Spryker\Zed\RestRequestValidator\Business\Builder;
 
 interface RestRequestValidatorCacheBuilderInterface
 {
-    /**
-     * @return void
-     */
     public function build(): void;
 }

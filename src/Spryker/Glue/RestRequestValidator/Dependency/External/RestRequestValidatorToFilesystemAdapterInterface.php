@@ -9,10 +9,5 @@ namespace Spryker\Glue\RestRequestValidator\Dependency\External;
 
 interface RestRequestValidatorToFilesystemAdapterInterface
 {
-    /**
-     * @param string $file
-     *
-     * @return bool
-     */
     public function exists(string $file): bool;
 }

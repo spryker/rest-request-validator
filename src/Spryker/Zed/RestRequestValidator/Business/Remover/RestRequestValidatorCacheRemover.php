@@ -31,11 +31,6 @@ class RestRequestValidatorCacheRemover implements RestRequestValidatorCacheRemov
      */
     protected $config;
 
-    /**
-     * @param \Spryker\Zed\RestRequestValidator\Dependency\Store\RestRequestValidatorToStoreInterface $store
-     * @param \Spryker\Zed\RestRequestValidator\Dependency\External\RestRequestValidatorToFilesystemAdapterInterface $filesystem
-     * @param \Spryker\Zed\RestRequestValidator\RestRequestValidatorConfig $config
-     */
     public function __construct(
         RestRequestValidatorToStoreInterface $store,
         RestRequestValidatorToFilesystemAdapterInterface $filesystem,
@@ -46,9 +41,6 @@ class RestRequestValidatorCacheRemover implements RestRequestValidatorCacheRemov
         $this->config = $config;
     }
 
-    /**
-     * @return void
-     */
     public function remove(): void
     {
         foreach ($this->store->getAllowedStores() as $storeName) {

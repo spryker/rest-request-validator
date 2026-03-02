@@ -9,19 +9,7 @@ namespace Spryker\Zed\RestRequestValidator\Business\Saver;
 
 interface RestRequestValidatorCacheSaverInterface
 {
-    /**
-     * @param array $validatorConfig
-     * @param string $storeName
-     *
-     * @return void
-     */
     public function save(array $validatorConfig, string $storeName): void;
 
-    /**
-     * @param array $validatorConfig
-     * @param string $codeBucket
-     *
-     * @return void
-     */
     public function saveCacheForCodeBucket(array $validatorConfig, string $codeBucket): void;
 }

@@ -22,10 +22,6 @@ class RestRequestValidatorCodeBucketCacheRemover implements RestRequestValidator
      */
     protected $config;
 
-    /**
-     * @param \Spryker\Zed\RestRequestValidator\Dependency\External\RestRequestValidatorToFilesystemAdapterInterface $filesystem
-     * @param \Spryker\Zed\RestRequestValidator\RestRequestValidatorConfig $config
-     */
     public function __construct(
         RestRequestValidatorToFilesystemAdapterInterface $filesystem,
         RestRequestValidatorConfig $config
@@ -34,11 +30,6 @@ class RestRequestValidatorCodeBucketCacheRemover implements RestRequestValidator
         $this->config = $config;
     }
 
-    /**
-     * @param string $codeBucket
-     *
-     * @return void
-     */
     public function remove(string $codeBucket): void
     {
         $outdatedConfigFiles = $this->getOutdatedConfig($codeBucket);

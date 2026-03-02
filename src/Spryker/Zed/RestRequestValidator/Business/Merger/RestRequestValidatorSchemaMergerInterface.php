@@ -9,10 +9,5 @@ namespace Spryker\Zed\RestRequestValidator\Business\Merger;
 
 interface RestRequestValidatorSchemaMergerInterface
 {
-    /**
-     * @param array $validatorSchema
-     *
-     * @return array
-     */
     public function merge(array $validatorSchema): array;
 }

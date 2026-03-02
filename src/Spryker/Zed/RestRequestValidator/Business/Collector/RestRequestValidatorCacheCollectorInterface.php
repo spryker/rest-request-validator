@@ -9,10 +9,5 @@ namespace Spryker\Zed\RestRequestValidator\Business\Collector;
 
 interface RestRequestValidatorCacheCollectorInterface
 {
-    /**
-     * @param string $storeName
-     *
-     * @return array
-     */
     public function collect(string $storeName): array;
 }

@@ -43,11 +43,6 @@ class RestRequestValidatorConstraintResolver implements RestRequestValidatorCons
      */
     protected $config;
 
-    /**
-     * @param \Spryker\Glue\RestRequestValidator\Dependency\External\RestRequestValidatorToConstraintCollectionAdapterInterface $constraintCollectionAdapter
-     * @param \Spryker\Glue\RestRequestValidator\Processor\Validator\Configuration\RestRequestValidatorConfigReaderInterface $restRequestValidatorConfigReader
-     * @param \Spryker\Glue\RestRequestValidator\RestRequestValidatorConfig $config
-     */
     public function __construct(
         RestRequestValidatorToConstraintCollectionAdapterInterface $constraintCollectionAdapter,
         RestRequestValidatorConfigReaderInterface $restRequestValidatorConfigReader,
@@ -58,11 +53,6 @@ class RestRequestValidatorConstraintResolver implements RestRequestValidatorCons
         $this->config = $config;
     }
 
-    /**
-     * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
-     *
-     * @return \Symfony\Component\Validator\Constraints\Collection|null
-     */
     public function getConstraintCollection(RestRequestInterface $restRequest): ?Collection
     {
         $initializedConstraintCollection = $this->getConstraintFromConfig($restRequest);
@@ -101,11 +91,6 @@ class RestRequestValidatorConstraintResolver implements RestRequestValidatorCons
         return $configResult;
     }
 
-    /**
-     * @param array $validators
-     *
-     * @return array
-     */
     protected function mapFieldConstrains(array $validators): array
     {
         foreach ($validators as $key => $validator) {
@@ -120,9 +105,6 @@ class RestRequestValidatorConstraintResolver implements RestRequestValidatorCons
         );
     }
 
-    /**
-     * @return callable
-     */
     protected function instantiateConstraintFromConfig(): callable
     {
         return function (array $validatorConfig): Constraint {

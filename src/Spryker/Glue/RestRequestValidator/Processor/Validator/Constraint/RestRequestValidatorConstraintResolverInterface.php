@@ -12,10 +12,5 @@ use Symfony\Component\Validator\Constraints\Collection;
 
 interface RestRequestValidatorConstraintResolverInterface
 {
-    /**
-     * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
-     *
-     * @return \Symfony\Component\Validator\Constraints\Collection|null
-     */
     public function getConstraintCollection(RestRequestInterface $restRequest): ?Collection;
 }

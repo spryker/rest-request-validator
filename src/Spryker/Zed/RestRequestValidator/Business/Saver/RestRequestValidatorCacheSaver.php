@@ -28,11 +28,6 @@ class RestRequestValidatorCacheSaver implements RestRequestValidatorCacheSaverIn
      */
     protected $yaml;
 
-    /**
-     * @param \Spryker\Zed\RestRequestValidator\Dependency\External\RestRequestValidatorToFilesystemAdapterInterface $filesystem
-     * @param \Spryker\Zed\RestRequestValidator\Dependency\External\RestRequestValidatorToYamlAdapterInterface $yaml
-     * @param \Spryker\Zed\RestRequestValidator\RestRequestValidatorConfig $config
-     */
     public function __construct(
         RestRequestValidatorToFilesystemAdapterInterface $filesystem,
         RestRequestValidatorToYamlAdapterInterface $yaml,
@@ -59,12 +54,6 @@ class RestRequestValidatorCacheSaver implements RestRequestValidatorCacheSaverIn
         );
     }
 
-    /**
-     * @param array $validatorConfig
-     * @param string $codeBucket
-     *
-     * @return void
-     */
     public function saveCacheForCodeBucket(array $validatorConfig, string $codeBucket): void
     {
         $outdatedConfigFiles = glob($this->getCodeBucketCacheFilePath($codeBucket), GLOB_NOSORT);
@@ -91,11 +80,6 @@ class RestRequestValidatorCacheSaver implements RestRequestValidatorCacheSaverIn
         return sprintf($this->config->getCacheFilePathPattern(), $storeName);
     }
 
-    /**
-     * @param string $codeBucket
-     *
-     * @return string
-     */
     protected function getCodeBucketCacheFilePath(string $codeBucket): string
     {
         return sprintf($this->config->getCodeBucketCacheFilePathPattern(), $codeBucket);

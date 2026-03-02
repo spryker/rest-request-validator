@@ -28,11 +28,6 @@ class RestRequestValidatorCodeBucketCacheBuilder implements RestRequestValidator
      */
     protected $restRequestValidatorCacheSaver;
 
-    /**
-     * @param \Spryker\Zed\RestRequestValidator\Business\Collector\RestRequestValidatorCacheCollectorInterface $restRequestValidatorCacheCollector
-     * @param \Spryker\Zed\RestRequestValidator\Business\Merger\RestRequestValidatorSchemaMergerInterface $restRequestValidatorSchemaMerger
-     * @param \Spryker\Zed\RestRequestValidator\Business\Saver\RestRequestValidatorCacheSaverInterface $restRequestValidatorCacheSaver
-     */
     public function __construct(
         RestRequestValidatorCacheCollectorInterface $restRequestValidatorCacheCollector,
         RestRequestValidatorSchemaMergerInterface $restRequestValidatorSchemaMerger,
@@ -43,11 +38,6 @@ class RestRequestValidatorCodeBucketCacheBuilder implements RestRequestValidator
         $this->restRequestValidatorCacheSaver = $restRequestValidatorCacheSaver;
     }
 
-    /**
-     * @param string $codeBucket
-     *
-     * @return void
-     */
     public function buildCacheForCodeBucket(string $codeBucket): void
     {
         $config = $this->restRequestValidatorCacheCollector->collect($codeBucket);

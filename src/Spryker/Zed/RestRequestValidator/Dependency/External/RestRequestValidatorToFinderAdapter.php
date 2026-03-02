@@ -54,9 +54,6 @@ class RestRequestValidatorToFinderAdapter implements RestRequestValidatorToFinde
         return $this->finder->getIterator();
     }
 
-    /**
-     * @return int
-     */
     public function count(): int
     {
         return $this->finder->count();

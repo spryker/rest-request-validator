@@ -21,22 +21,11 @@ class RestRequestValidatorToFilesystemAdapter implements RestRequestValidatorToF
         $this->filesystem = new Filesystem();
     }
 
-    /**
-     * @param string $filename
-     * @param string $content
-     *
-     * @return void
-     */
     public function dumpFile(string $filename, string $content): void
     {
         $this->filesystem->dumpFile($filename, $content);
     }
 
-    /**
-     * @param array $files
-     *
-     * @return void
-     */
     public function remove(array $files): void
     {
         $this->filesystem->remove($files);

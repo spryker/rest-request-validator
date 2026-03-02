@@ -75,9 +75,6 @@ class RestRequestValidatorCustomConstraintPluginTest extends Unit
      */
     protected $restRequestValidatorPlugin;
 
-    /**
-     * @return void
-     */
     protected function setUp(): void
     {
         parent::setUp();
@@ -91,9 +88,6 @@ class RestRequestValidatorCustomConstraintPluginTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function testValidateWillPassOnCorrectRequest(): void
     {
         $mockRestRequest = $this->createMockRestRequestWithData(static::CORRECT_ENDPOINT_DATA);
@@ -106,9 +100,6 @@ class RestRequestValidatorCustomConstraintPluginTest extends Unit
         $this->assertNull($errorTransfer);
     }
 
-    /**
-     * @return void
-     */
     public function testValidateWillPassOnIncorrectRequest(): void
     {
         $mockRestRequest = $this->createMockRestRequestWithData(static::INCORRECT_ENDPOINT_DATA);
@@ -121,11 +112,6 @@ class RestRequestValidatorCustomConstraintPluginTest extends Unit
         $this->assertCount(1, $errorTransfer->getRestErrors());
     }
 
-    /**
-     * @param string|null $level
-     *
-     * @return string
-     */
     protected function getFixtureDirectory(?string $level = null): string
     {
         $pathParts = [
@@ -191,19 +177,11 @@ class RestRequestValidatorCustomConstraintPluginTest extends Unit
         return $mockStoreClient;
     }
 
-    /**
-     * @return \SprykerTest\Zed\RestRequestValidator\Communication\Stub\RestRequest
-     */
     protected function createMockRestRequest(): RestRequest
     {
         return new RestRequest();
     }
 
-    /**
-     * @param \Spryker\Glue\RestRequestValidator\RestRequestValidatorConfig $mockConfig
-     *
-     * @return \Spryker\Glue\RestRequestValidator\Processor\Validator\Configuration\RestRequestValidatorConfigReader
-     */
     protected function createMockConfigReader(RestRequestValidatorConfig $mockConfig): RestRequestValidatorConfigReader
     {
         $mockConfigReader = new RestRequestValidatorConfigReader(
@@ -216,11 +194,6 @@ class RestRequestValidatorCustomConstraintPluginTest extends Unit
         return $mockConfigReader;
     }
 
-    /**
-     * @param array $endpointAttributes
-     *
-     * @return \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface
-     */
     protected function createMockRestRequestWithData(array $endpointAttributes): RestRequestInterface
     {
         $mockRestRequestObject = $this->createMockRestRequest();
@@ -233,11 +206,6 @@ class RestRequestValidatorCustomConstraintPluginTest extends Unit
         return $mockRestRequest;
     }
 
-    /**
-     * @param \Spryker\Glue\RestRequestValidator\RestRequestValidatorConfig $mockConfig
-     *
-     * @return \Spryker\Glue\RestRequestValidator\Processor\Validator\Constraint\RestRequestValidatorConstraintResolverInterface
-     */
     protected function createMockConfigResolver(RestRequestValidatorConfig $mockConfig): RestRequestValidatorConstraintResolverInterface
     {
         return new RestRequestValidatorConstraintResolver(

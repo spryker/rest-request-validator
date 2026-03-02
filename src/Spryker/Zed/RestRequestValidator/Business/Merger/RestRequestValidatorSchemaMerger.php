@@ -9,11 +9,6 @@ namespace Spryker\Zed\RestRequestValidator\Business\Merger;
 
 class RestRequestValidatorSchemaMerger implements RestRequestValidatorSchemaMergerInterface
 {
-    /**
-     * @param array $validatorSchema
-     *
-     * @return array
-     */
     public function merge(array $validatorSchema): array
     {
         $validatorSchemaMerged = [];
@@ -28,11 +23,6 @@ class RestRequestValidatorSchemaMerger implements RestRequestValidatorSchemaMerg
         return $validatorSchemaMerged;
     }
 
-    /**
-     * @param array $validationConfigs
-     *
-     * @return array
-     */
     protected function mergeOverwrittenValidatorConfig(array $validationConfigs): array
     {
         $resultingConfiguration = [];
@@ -46,13 +36,6 @@ class RestRequestValidatorSchemaMerger implements RestRequestValidatorSchemaMerg
         return $resultingConfiguration;
     }
 
-    /**
-     * @param string $actionName
-     * @param array $resultingConfiguration
-     * @param array $fieldsConfig
-     *
-     * @return array
-     */
     protected function mergeOverlappingConfig(string $actionName, array $resultingConfiguration, array $fieldsConfig): array
     {
         if (!array_key_exists($actionName, $resultingConfiguration)) {

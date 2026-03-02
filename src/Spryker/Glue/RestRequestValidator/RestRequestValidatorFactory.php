@@ -25,9 +25,6 @@ use Spryker\Glue\RestRequestValidator\Processor\Validator\RestRequestValidator;
  */
 class RestRequestValidatorFactory extends AbstractFactory
 {
-    /**
-     * @return \Spryker\Glue\GlueApplication\Rest\Request\RestRequestValidatorInterface
-     */
     public function createRestRequestValidator(): RestRequestValidatorInterface
     {
         return new RestRequestValidator(
@@ -37,9 +34,6 @@ class RestRequestValidatorFactory extends AbstractFactory
         );
     }
 
-    /**
-     * @return \Spryker\Glue\RestRequestValidator\Processor\Validator\Configuration\RestRequestValidatorConfigReaderInterface
-     */
     public function createRestRequestValidatorConfigReader(): RestRequestValidatorConfigReaderInterface
     {
         return new RestRequestValidatorConfigReader(
@@ -50,9 +44,6 @@ class RestRequestValidatorFactory extends AbstractFactory
         );
     }
 
-    /**
-     * @return \Spryker\Glue\RestRequestValidator\Processor\Validator\Constraint\RestRequestValidatorConstraintResolverInterface
-     */
     public function createRestRequestValidatorConstraintResolver(): RestRequestValidatorConstraintResolverInterface
     {
         return new RestRequestValidatorConstraintResolver(
@@ -62,41 +53,26 @@ class RestRequestValidatorFactory extends AbstractFactory
         );
     }
 
-    /**
-     * @return \Spryker\Glue\RestRequestValidator\Dependency\External\RestRequestValidatorToFilesystemAdapterInterface
-     */
     public function getFilesystemAdapter(): RestRequestValidatorToFilesystemAdapterInterface
     {
         return $this->getProvidedDependency(RestRequestValidatorDependencyProvider::ADAPTER_FILESYSTEM);
     }
 
-    /**
-     * @return \Spryker\Glue\RestRequestValidator\Dependency\External\RestRequestValidatorToYamlAdapterInterface
-     */
     public function getYamlAdapter(): RestRequestValidatorToYamlAdapterInterface
     {
         return $this->getProvidedDependency(RestRequestValidatorDependencyProvider::ADAPTER_YAML);
     }
 
-    /**
-     * @return \Spryker\Glue\RestRequestValidator\Dependency\External\RestRequestValidatorToValidationAdapterInterface
-     */
     public function getValidatorAdapter(): RestRequestValidatorToValidationAdapterInterface
     {
         return $this->getProvidedDependency(RestRequestValidatorDependencyProvider::ADAPTER_VALIDATION);
     }
 
-    /**
-     * @return \Spryker\Glue\RestRequestValidator\Dependency\External\RestRequestValidatorToConstraintCollectionAdapterInterface
-     */
     public function getConstraintCollectionAdapter(): RestRequestValidatorToConstraintCollectionAdapterInterface
     {
         return $this->getProvidedDependency(RestRequestValidatorDependencyProvider::ADAPTER_CONSTRAINT_COLLECTION);
     }
 
-    /**
-     * @return \Spryker\Glue\RestRequestValidator\Dependency\Client\RestRequestValidatorToStoreClientInterface
-     */
     public function getStoreClient(): RestRequestValidatorToStoreClientInterface
     {
         return $this->getProvidedDependency(RestRequestValidatorDependencyProvider::CLIENT_STORE);

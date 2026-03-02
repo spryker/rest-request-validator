@@ -46,9 +46,6 @@ class RestRequestValidatorFacadeTest extends Unit
      */
     protected $tester;
 
-    /**
-     * @return void
-     */
     public function tearDown(): void
     {
         parent::tearDown();
@@ -56,9 +53,6 @@ class RestRequestValidatorFacadeTest extends Unit
         $this->deleteDirectory($this->getFixtureDirectory('Result'));
     }
 
-    /**
-     * @return void
-     */
     public function testBuildCacheWillCollectConfigsCorrectly(): void
     {
         $restRequestValidatorFacade = $this->tester->getLocator()->restRequestValidator()->facade();
@@ -244,11 +238,6 @@ class RestRequestValidatorFacadeTest extends Unit
         return $mockFactory;
     }
 
-    /**
-     * @param string|null $level
-     *
-     * @return string
-     */
     protected function getFixtureDirectory(?string $level = null): string
     {
         $pathParts = [
@@ -312,11 +301,6 @@ class RestRequestValidatorFacadeTest extends Unit
         return $mockFactory;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\StoreTransfer $store
-     *
-     * @return array
-     */
     protected function getExpectedResult(StoreTransfer $store): array
     {
         return (new RestRequestValidatorToYamlAdapter())->parseFile(
@@ -324,11 +308,6 @@ class RestRequestValidatorFacadeTest extends Unit
         );
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\StoreTransfer $store
-     *
-     * @return array
-     */
     protected function getActualResult(StoreTransfer $store): array
     {
         return (new RestRequestValidatorToYamlAdapter())->parseFile(
@@ -336,11 +315,6 @@ class RestRequestValidatorFacadeTest extends Unit
         );
     }
 
-    /**
-     * @param string $dir
-     *
-     * @return bool
-     */
     protected function deleteDirectory(string $dir): bool
     {
         $files = array_diff(scandir($dir), ['.', '..']);

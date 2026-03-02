@@ -34,12 +34,6 @@ class RestRequestValidatorSchemaFinder implements RestRequestValidatorSchemaFind
      */
     protected RestRequestValidatorToStoreFacadeInterface $storeFacade;
 
-    /**
-     * @param \Spryker\Zed\RestRequestValidator\Dependency\External\RestRequestValidatorToFinderAdapterInterface $finder
-     * @param \Spryker\Zed\RestRequestValidator\RestRequestValidatorConfig $config
-     * @param \Spryker\Zed\RestRequestValidator\Dependency\Facade\RestRequestValidatorToKernelFacadeInterface $kernelFacade
-     * @param \Spryker\Zed\RestRequestValidator\Dependency\Facade\RestRequestValidatorToStoreFacadeInterface $storeFacade
-     */
     public function __construct(
         RestRequestValidatorToFinderAdapterInterface $finder,
         RestRequestValidatorConfig $config,
@@ -84,12 +78,6 @@ class RestRequestValidatorSchemaFinder implements RestRequestValidatorSchemaFind
         return $paths;
     }
 
-    /**
-     * @param string $storeName
-     * @param string $pathPattern
-     *
-     * @return string
-     */
     protected function preparePathPattern(string $storeName, string $pathPattern): string
     {
         if ($this->isStoreLevelPath($pathPattern)) {
@@ -99,22 +87,11 @@ class RestRequestValidatorSchemaFinder implements RestRequestValidatorSchemaFind
         return $pathPattern;
     }
 
-    /**
-     * @param string $pathPattern
-     * @param string $storeName
-     *
-     * @return string
-     */
     protected function replaceStoreCodeInPath(string $pathPattern, string $storeName): string
     {
         return sprintf($pathPattern, $storeName);
     }
 
-    /**
-     * @param string $pathPattern
-     *
-     * @return string
-     */
     protected function addCodeBucketsToPath(string $pathPattern): string
     {
         if (!defined('APPLICATION_CODE_BUCKET')) {
@@ -146,21 +123,11 @@ class RestRequestValidatorSchemaFinder implements RestRequestValidatorSchemaFind
         return sprintf($pathPattern, implode('|', $excludedStoreCodes));
     }
 
-    /**
-     * @param string $pathPattern
-     *
-     * @return bool
-     */
     protected function isStoreLevelPath(string $pathPattern): bool
     {
         return $pathPattern === $this->config->getStorePathPattern();
     }
 
-    /**
-     * @param string $pathPattern
-     *
-     * @return bool
-     */
     protected function isProjectLevelPath(string $pathPattern): bool
     {
         return $pathPattern === $this->config->getProjectPathPattern();

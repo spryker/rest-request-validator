@@ -18,19 +18,11 @@ class Currency extends SymfonyConstraint
         'FJD',
     ];
 
-    /**
-     * @return string
-     */
     public function getTargets(): string
     {
         return static::CLASS_CONSTRAINT;
     }
 
-    /**
-     * @param string $isoCode
-     *
-     * @return bool
-     */
     public function isValidCurrencyIsoCode(string $isoCode): bool
     {
         return in_array($isoCode, static::VALID_CURRENCIES);

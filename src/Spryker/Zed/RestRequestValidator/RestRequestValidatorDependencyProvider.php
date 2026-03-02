@@ -54,11 +54,6 @@ class RestRequestValidatorDependencyProvider extends AbstractBundleDependencyPro
      */
     public const STORE = 'STORE';
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     public function provideBusinessLayerDependencies(Container $container): Container
     {
         $container = parent::provideBusinessLayerDependencies($container);
@@ -72,11 +67,6 @@ class RestRequestValidatorDependencyProvider extends AbstractBundleDependencyPro
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addFinderAdapterDependency(Container $container): Container
     {
         $container->set(static::ADAPTER_FINDER, function () {
@@ -86,11 +76,6 @@ class RestRequestValidatorDependencyProvider extends AbstractBundleDependencyPro
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addFilesystemAdapterDependency(Container $container): Container
     {
         $container->set(static::ADAPTER_FILESYSTEM, function () {
@@ -100,11 +85,6 @@ class RestRequestValidatorDependencyProvider extends AbstractBundleDependencyPro
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addYamlAdapterDependency(Container $container): Container
     {
         $container->set(static::ADAPTER_YAML, function () {
@@ -130,11 +110,6 @@ class RestRequestValidatorDependencyProvider extends AbstractBundleDependencyPro
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addStoreFacade(Container $container): Container
     {
         $container->set(static::FACADE_STORE, function (Container $container) {
@@ -146,11 +121,6 @@ class RestRequestValidatorDependencyProvider extends AbstractBundleDependencyPro
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addKernelFacade(Container $container): Container
     {
         $container->set(static::FACADE_KERNEL, function (Container $container) {
