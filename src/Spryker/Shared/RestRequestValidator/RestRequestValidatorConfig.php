@@ -12,6 +12,8 @@ use Spryker\Shared\Kernel\AbstractBundleConfig;
 class RestRequestValidatorConfig extends AbstractBundleConfig
 {
     /**
+     * @api
+     *
      * @deprecated Use CODE_BUCKET_VALIDATION_CACHE_FILENAME_PATTERN instead.
      *
      * @var string
@@ -19,6 +21,8 @@ class RestRequestValidatorConfig extends AbstractBundleConfig
     public const VALIDATION_CACHE_FILENAME_PATTERN = '/Generated/Glue/Validator/%s/validation.cache';
 
     /**
+     * @api
+     *
      * @var string
      */
     public const CODE_BUCKET_VALIDATION_CACHE_FILENAME_PATTERN = '/Generated/Glue/Validator/validation%s.cache';

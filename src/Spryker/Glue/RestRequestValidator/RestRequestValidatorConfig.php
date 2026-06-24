@@ -15,6 +15,8 @@ use Symfony\Component\HttpFoundation\Request;
 class RestRequestValidatorConfig extends AbstractBundleConfig
 {
     /**
+     * @api
+     *
      * @var string
      */
     public const RESPONSE_CODE_REQUEST_INVALID = '901';
