@@ -9,5 +9,9 @@ namespace Spryker\Glue\RestRequestValidator\Dependency\External;
 
 interface RestRequestValidatorToYamlAdapterInterface
 {
+    /**
+     * @param int-mask-of<\Symfony\Component\Yaml\Yaml::PARSE_*> $flags
+     */
+    // phpcs:ignore Spryker.Commenting.DocBlockParamAllowDefaultValue.Typehint
     public function parseFile(string $filename, int $flags = 0): array;
 }

@@ -11,6 +11,9 @@ use Symfony\Component\Yaml\Yaml;
 
 class RestRequestValidatorToYamlAdapter implements RestRequestValidatorToYamlAdapterInterface
 {
+    /**
+     * {@inheritDoc}
+     */
     public function parseFile(string $filename, int $flags = 0): array
     {
         return Yaml::parseFile($filename, $flags);
