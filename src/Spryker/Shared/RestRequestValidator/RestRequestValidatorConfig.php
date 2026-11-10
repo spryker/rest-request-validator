@@ -7,9 +7,9 @@
 
 namespace Spryker\Shared\RestRequestValidator;
 
-use Spryker\Shared\Kernel\AbstractBundleConfig;
+use Spryker\Shared\Kernel\AbstractSharedConfig;
 
-class RestRequestValidatorConfig extends AbstractBundleConfig
+class RestRequestValidatorConfig extends AbstractSharedConfig
 {
     /**
      * @api
