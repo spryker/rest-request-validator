@@ -15,11 +15,11 @@ class RestRequestValidatorToKernelFacadeBridge implements RestRequestValidatorTo
     protected $kernelFacade;
 
     /**
-     * @param \Spryker\Zed\Kernel\Business\KernelFacadeInterface $KernelFacade
+     * @param \Spryker\Zed\Kernel\Business\KernelFacadeInterface $kernelFacade
      */
-    public function __construct($KernelFacade)
+    public function __construct($kernelFacade)
     {
-        $this->kernelFacade = $KernelFacade;
+        $this->kernelFacade = $kernelFacade;
     }
 
     /**
